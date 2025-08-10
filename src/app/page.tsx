@@ -1,103 +1,176 @@
-import Image from "next/image";
+"use client"
+
+import { useEffect, useState } from "react"
+import { ICv, GSheetLib, IGSheet, ICvExperience, ICvReference, ICvEducation } from "./interfaces/cv.interface"
+import { SheetLib } from "./lib/sheet.lib"
+import useGoogleSheets from "use-google-sheets"
+import Profile from "./components/profile/profile"
+import ExpApp from "./components/experience/exp-app"
+import { useParams, useSearchParams } from "next/navigation"
 
 export default function Home() {
-  return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const [cv, setCv] = useState<ICv>({ profile: { name: '', position: '' } } as ICv)
+  // const searchParams = useSearchParams() 
+  // const [searchParams, setSearchParams] = useSearchParams();
+  // const apiKey = searchParams.get('a')!
+  // const sheetId = searchParams.get('s')!
+  const params = useParams<{ a: string; s: string }>() // NOTE: to-fix
+  console.log(params);
+  const apiKey = params.a
+  const sheetId = params.s
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+  const { data } = useGoogleSheets({
+    apiKey,
+    sheetId,
+    sheetsOptions: [{ id: 'Sheet1' }],
+  })
+  
+  useEffect(() => {
+    if (!data || !data.length) return
+    
+    const sheet: IGSheet[] = data[0].data as IGSheet[]
+    const profileList = SheetLib.filterSheet(sheet, GSheetLib.CV_PROFILE)
+    const skillList = SheetLib.filterSheet(sheet, GSheetLib.CV_SKILL)
+    const summaryList = SheetLib.filterSheet(sheet, GSheetLib.CV_SUMMARY)
+    const _experienceList = SheetLib.filterSheet(sheet, GSheetLib.CV_EXPERIENCE)
+    const referenceList = SheetLib.filterSheet(sheet, GSheetLib.CV_REFERENCE)
+    const educationList = SheetLib.filterSheet(sheet, GSheetLib.CV_EDUCATION)
+    const tabTitleList = SheetLib.filterSheet(sheet, GSheetLib.CV_TABTITLE)
+    
+    const experienceList = _experienceList.map(sheet => {
+      const keyArr = sheet.key.split('_')
+      const key = `${keyArr[0]}_${keyArr[1]}`
+      if (keyArr.length > 1) 
+        return { ...sheet, key2: keyArr[2], key3: keyArr[3], key }
+
+      return { ...sheet, key}
+    })
+    
+    const experienceGroupObj = SheetLib.groupData(experienceList)
+    const experienceGroupList = Object.keys(experienceGroupObj).map(key => {
+      const list: IGSheet[] = experienceGroupObj[key]
+      const expList = list.filter(x => !x.key2 && !x.key3)
+      const techObj = list.find(x => x.key2 == "TECH")
+      const expAppCompany = list.find(x => x.key2 == "COMPANY")      
+      
+      const obj: ICvExperience = {
+        position: expList[0]?.value2,
+        timeperiod: expList[0].value3,
+        technologies: [],
+        descriptions: expList.map(x => x.description),
+        company: expAppCompany!,
+        expApps: []
+      }
+
+      if (techObj) {
+        obj.technologies = techObj.description.split(',')
+      }
+
+      const toGrpExperienceList =  list.filter(x => x.key2 && x.key3)
+      const expAppGroupObj = SheetLib.groupData(toGrpExperienceList, "key2")
+
+      obj.expApps = Object.keys(expAppGroupObj).map(expAppKey => {
+        const expAppList: IGSheet[] = expAppGroupObj[expAppKey]
+        const expAppObj = expAppList.find(x => x.key3 == "APP")
+        const expAppTechObj = expAppList.find(x => x.key3 == "TECH")
+        const expAppSpecObjList = expAppList.filter(x => x.key3 == "SPEC")
+        const expAppContObjList = expAppList.filter(x => x.key3 == "CONT")
+        const expAppImgsObjList = expAppList.filter(x => x.key3 == "IMG")
+        
+        return {
+          expApp: expAppObj!,
+          expAppTechs: expAppTechObj!.description?.split(','),
+          expAppSpecs: expAppSpecObjList,
+          expAppConts: expAppContObjList,
+          expAppImgs: expAppImgsObjList
+        }
+      })
+      
+      return obj
+    })
+
+    // reference group-mapping
+    const referenceGroupObj = SheetLib.groupData(referenceList)
+    const referenceGroupList: ICvReference[] = Object.keys(referenceGroupObj).map(key => {
+      const list: IGSheet[] = referenceGroupObj[key]
+      return {
+        list: list.map(x => ({
+          key: x.value2,
+          value: x.value
+        }))
+      }
+    })
+
+    // education group-mapping
+    const educationGroupObj = SheetLib.groupData(educationList)
+    const educationGroupList: ICvEducation[] = Object.keys(educationGroupObj).map(key => {
+      const list: IGSheet[] = educationGroupObj[key]
+      return { list }
+    })
+
+    if (tabTitleList?.length && tabTitleList[0]) {
+      document.title = tabTitleList[0].value
+    }
+    
+    setCv({
+      profile: {
+        photo: SheetLib.findData(profileList, "PHOTO"),
+        name: SheetLib.findData(profileList, "NAME"),
+        email: SheetLib.findData(profileList, "EMAIL"),
+        address: SheetLib.findData(profileList, "ADDRESS"),
+        position: SheetLib.findData(profileList, "POSITION"),
+        number: SheetLib.findData(profileList, "NUMBER"),
+        links: profileList.filter((x: IGSheet) => x.key.includes("LINK_")).map(x => {
+          return {
+            key: x.key.split("_")[1].toLowerCase(),
+            value: x.value
+          }
+        })
+      },
+      skill: {
+        backend: {
+          level: SheetLib.findData(skillList, "BACKEND_LVL"),
+          list: SheetLib.filterData(skillList, "BACKEND")
+        },
+        frontend: {
+          level: SheetLib.findData(skillList, "FRONTEND_LVL"),
+          list: SheetLib.filterData(skillList, "FRONTEND")
+        },
+        databases: {
+          level: SheetLib.findData(skillList, "DATABASES_LVL"),
+          list: SheetLib.filterData(skillList, "DATABASES")
+        },
+        miscellaneuos: {
+          level: SheetLib.findData(skillList, "MISCELLANEUOS_LVL"),
+          list: SheetLib.filterData(skillList, "MISCELLANEUOS")
+        }
+      },
+      summary: {
+        title: SheetLib.findData(summaryList, "TITLE")
+      },
+      experience: experienceGroupList,
+      referecence: referenceGroupList,
+      education: educationGroupList
+    })
+  }, [data])
+
+  return (
+    <div className="font-roboto grid items-center dark:bg-gray-900">
+      <div className="w-[50%] m-auto">
+        <main className="flex flex-col row-start-2 items-center pb-8">
+
+          { cv.profile && <Profile data={cv.profile}></Profile> }
+        </main>
+
+        { cv.experience && cv.experience.filter(x => x.expApps.length).map((exp, i) => 
+          <ExpApp key={i} data={exp}></ExpApp>
+        ) }
+        
+        <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
+          
+        </footer>
+      </div>
+      
     </div>
-  );
+  )
 }
