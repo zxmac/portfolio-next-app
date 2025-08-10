@@ -6,24 +6,15 @@ import { SheetLib } from "./lib/sheet.lib"
 import useGoogleSheets from "use-google-sheets"
 import Profile from "./components/profile/profile"
 import ExpApp from "./components/experience/exp-app"
-import { useParams, useSearchParams } from "next/navigation"
 
 export default function Home() {
   const [cv, setCv] = useState<ICv>({ profile: { name: '', position: '' } } as ICv)
-  // const searchParams = useSearchParams() 
-  // const [searchParams, setSearchParams] = useSearchParams();
-  // const apiKey = searchParams.get('a')!
-  // const sheetId = searchParams.get('s')!
-  const params = useParams<{ a: string; s: string }>() // NOTE: to-fix
-  console.log(params);
-  const apiKey = params.a
-  const sheetId = params.s
-
+  
   const { data } = useGoogleSheets({
-    apiKey,
-    sheetId,
+    apiKey: '',
+    sheetId: '',
     sheetsOptions: [{ id: 'Sheet1' }],
-  })
+  })  
   
   useEffect(() => {
     if (!data || !data.length) return
