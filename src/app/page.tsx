@@ -3,23 +3,36 @@
 import { useEffect, useState } from "react"
 import { ICv, GSheetLib, IGSheet, ICvExperience, ICvReference, ICvEducation } from "./interfaces/cv.interface"
 import { SheetLib } from "./lib/sheet.lib"
-import useGoogleSheets from "use-google-sheets"
 import Profile from "./components/profile/profile"
 import ExpApp from "./components/experience/exp-app"
+import { CommonLib } from "./lib/common.lib"
 
 export default function Home() {
   const [cv, setCv] = useState<ICv>({ profile: { name: '', position: '' } } as ICv)
+  const [data, setData] = useState<IGSheet[]>([])
+
+  useEffect(() => {
+    const sp =  CommonLib.getSearchParams(window)
+    console.log('sp', sp)
+
+    fetch(`https://sheets.googleapis.com/v4/spreadsheets/${sp.s}/values:batchGet?ranges=Sheet1&key=${sp.a}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setData(SheetLib.formatSheets(data.valueRanges[0].values))
+      })
+  }, [])
   
-  const { data } = useGoogleSheets({
-    apiKey: '',
-    sheetId: '',
-    sheetsOptions: [{ id: 'Sheet1' }],
-  })  
+  // const { data } = useGoogleSheets({
+  //   apiKey: params.a,
+  //   sheetId: params.s,
+  //   sheetsOptions: [{ id: 'Sheet1' }],
+  // })  
   
   useEffect(() => {
     if (!data || !data.length) return
     
-    const sheet: IGSheet[] = data[0].data as IGSheet[]
+    // const sheet: IGSheet[] = data[0].data as IGSheet[]
+    const sheet: IGSheet[] = data
     const profileList = SheetLib.filterSheet(sheet, GSheetLib.CV_PROFILE)
     const skillList = SheetLib.filterSheet(sheet, GSheetLib.CV_SKILL)
     const summaryList = SheetLib.filterSheet(sheet, GSheetLib.CV_SUMMARY)
@@ -161,7 +174,6 @@ export default function Home() {
           
         </footer>
       </div>
-      
     </div>
   )
 }

@@ -20,4 +20,15 @@ export class SheetLib {
             return group;
         }, {});
     }
+    public static formatSheets(list: [][]) {
+        const keys = list[0]
+        return list.slice(1).map(arr => {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const obj: IGSheet = {} as any;
+            for (let i = 0; i < keys.length; i++) {
+                obj[keys[i]] = arr[i]
+            }            
+            return obj;
+        })
+    }
 }
