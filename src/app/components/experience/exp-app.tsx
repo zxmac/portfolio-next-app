@@ -1,14 +1,14 @@
-import { ICvExperience } from "@/app/interfaces/cv.interface";
-import ExpAppCard from "./exp-app-card";
+import { ICvExperience } from "@/app/interfaces/cv.interface"
+import ExpAppCard from "./exp-app-card"
 
 interface IExpAppProps {
     data: ICvExperience
-};
+}
 
 export default function ExpApp(props: IExpAppProps) {
-    const { data } = props;
+    const { data } = props
     return (
-        <div>
+        <div className="mb-8">
             <div className="w-full p-4 border border-gray-200 bg-gray-50 rounded-t-xl dark:border-gray-600 dark:bg-gray-700">
                 <div className="grid grid-cols-3">
                 
@@ -28,9 +28,9 @@ export default function ExpApp(props: IExpAppProps) {
             </div>
 
             <div className="code-preview-wrapper">
-                <div className="flex p-0 bg-white border-gray-200 bg-gradient-to-r code-preview dark:bg-gray-900 border-x dark:border-gray-600">
+                <div className="flex p-0 bg-white rounded-b-xl border border-gray-200 bg-gradient-to-r code-preview dark:bg-gray-900 border-x dark:border-gray-600">
                     <div className="p-5">
-                        <div className="grid grid-cols-2 gap-5">
+                        <div className="grid md:grid-cols-2 sm:grid-cols-1 gap-5">
                             { data.expApps && data.expApps.map((expApp, i) => 
                                 <ExpAppCard key={i} data={expApp}></ExpAppCard>
                             ) }
@@ -39,5 +39,5 @@ export default function ExpApp(props: IExpAppProps) {
                 </div>
             </div>
         </div>
-    );
+    )
 }

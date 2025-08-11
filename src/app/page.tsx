@@ -6,19 +6,21 @@ import { SheetLib } from "./lib/sheet.lib"
 import Profile from "./components/profile/profile"
 import ExpApp from "./components/experience/exp-app"
 import { CommonLib } from "./lib/common.lib"
+import Spinner from "./components/ui/spinner/spinner"
 
 export default function Home() {
   const [cv, setCv] = useState<ICv>({ profile: { name: '', position: '' } } as ICv)
   const [data, setData] = useState<IGSheet[]>([])
+  const [showLoader, setShowLoader] = useState(true)
 
   useEffect(() => {
     const sp =  CommonLib.getSearchParams(window)
-    console.log('sp', sp)
 
     fetch(`https://sheets.googleapis.com/v4/spreadsheets/${sp.s}/values:batchGet?ranges=Sheet1&key=${sp.a}`)
       .then((response) => response.json())
       .then((data) => {
         setData(SheetLib.formatSheets(data.valueRanges[0].values))
+        setShowLoader(false)
       })
   }, [])
   
@@ -59,7 +61,7 @@ export default function Home() {
       
       const obj: ICvExperience = {
         position: expList[0]?.value2,
-        timeperiod: expList[0].value3,
+        timeperiod: expList[0]?.value3,
         technologies: [],
         descriptions: expList.map(x => x.description),
         company: expAppCompany!,
@@ -160,20 +162,24 @@ export default function Home() {
 
   return (
     <div className="font-roboto grid items-center dark:bg-gray-900">
-      <div className="w-[50%] m-auto">
+      <div className="w-[75%] m-auto">
         <main className="flex flex-col row-start-2 items-center pb-8">
 
           { cv.profile && <Profile data={cv.profile}></Profile> }
         </main>
 
-        { cv.experience && cv.experience.filter(x => x.expApps.length).map((exp, i) => 
-          <ExpApp key={i} data={exp}></ExpApp>
-        ) }
+        <div style={{ opacity: showLoader ? 0 : 1 }}>
+          { cv.experience && cv.experience.filter(x => x.expApps.length).map((exp, i) => 
+            <ExpApp key={i} data={exp}></ExpApp>
+          ) }
+        </div>        
         
         <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
           
         </footer>
       </div>
+      
+      { showLoader && <Spinner></Spinner> }
     </div>
   )
 }
