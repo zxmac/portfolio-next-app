@@ -1,5 +1,6 @@
 import { ICvExperience } from "@/app/interfaces/cv.interface"
 import ExpAppCard from "./exp-app-card"
+import SimpleIcon from "../ui/simple-icon/simple-icon"
 
 interface IExpAppProps {
     data: ICvExperience
@@ -15,7 +16,25 @@ export default function ExpApp(props: IExpAppProps) {
                     <div className="col-span-2">
                         <div className="flex flex-col justify-between p-4 leading-normal">
                             <h5 className="mb-2 text-2xl font-normal tracking-tight text-gray-900 dark:text-white">{data.company.value2}</h5>
-                            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{data.company.description}</p>
+                            {/* <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{data.company.description}</p> */}
+                            <div className="pt-2">
+                                <div className="flex">
+                                    <SimpleIcon className="icon-c-red mr-2" iconSlug="corporate" height="15" width="15"></SimpleIcon>
+                                    <p className="text-sm">{data.company.value}</p>
+                                </div>
+                            </div>
+                            <div className="pt-2">
+                                <div className="flex">
+                                    <SimpleIcon className="icon-c-red mr-2" iconSlug="calendar-days-solid" height="15" width="15"></SimpleIcon>
+                                    <p className="text-sm">{data.timeperiod}</p>
+                                </div>
+                            </div>
+                            <div className="pt-2">
+                                <div className="flex">
+                                    <SimpleIcon className="icon-c-red mr-2" iconSlug="location" height="15" width="15"></SimpleIcon>
+                                    <p className="text-sm">{data.company.description}</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
