@@ -26,7 +26,7 @@ export default function ExpAppCard(props: IExpAppProps) {
                 <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{data.expApp.description}</p>
 
                 <div>
-                    <p className="text-base">Tech stacks:</p>
+                    <p className="text-base">Technologies:</p>
                     <div style={{ paddingTop: '0', display: 'ruby' }}>                    
                         { props.data.expAppTechs && props.data.expAppTechs.map((x, i) => 
                             <div key={i} style={{ padding: '5px', display: 'flex'}}>

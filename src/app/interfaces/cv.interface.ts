@@ -15,6 +15,7 @@ export interface ICvProfile {
     position: string;
     number: string;
     links: ICvLink[];
+    techs: IGSheet[]
 }
 
 export type ICvLink = ICvBase
@@ -95,4 +96,5 @@ export class GSheetLib {
     public static readonly CV_REFERENCE = "CVREF";
     public static readonly CV_EDUCATION = "CVEDU";
     public static readonly CV_TABTITLE = "CVTABTITLE";
+    public static readonly CV_TECH = "CVTECH";
 }

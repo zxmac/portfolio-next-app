@@ -42,6 +42,7 @@ export default function Home() {
     const referenceList = SheetLib.filterSheet(sheet, GSheetLib.CV_REFERENCE)
     const educationList = SheetLib.filterSheet(sheet, GSheetLib.CV_EDUCATION)
     const tabTitleList = SheetLib.filterSheet(sheet, GSheetLib.CV_TABTITLE)
+    const techList = SheetLib.filterSheet(sheet, GSheetLib.CV_TECH)
     
     const experienceList = _experienceList.map(sheet => {
       const keyArr = sheet.key.split('_')
@@ -128,10 +129,11 @@ export default function Home() {
         number: SheetLib.findData(profileList, "NUMBER"),
         links: profileList.filter((x: IGSheet) => x.key.includes("LINK_")).map(x => {
           return {
-            key: x.key.split("_")[1].toLowerCase(),
+            key: x.value2,
             value: x.value
           }
-        })
+        }),
+        techs: techList
       },
       skill: {
         backend: {
