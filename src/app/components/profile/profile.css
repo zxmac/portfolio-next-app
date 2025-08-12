@@ -1,3 +1,7 @@
 .icon-link-c {
-    filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(221deg) brightness(118%) contrast(119%);
+    filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(222deg) brightness(118%) contrast(119%);
+}
+
+.profile-tech-icon {
+    filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(223deg) brightness(118%) contrast(119%);
 }

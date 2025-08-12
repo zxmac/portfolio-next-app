@@ -2,16 +2,23 @@ import { IGSheet } from "@/app/interfaces/cv.interface"
 import SimpleIcon from "../ui/simple-icon/simple-icon"
 
 interface IExpAppProps {
-    data: IGSheet
+    data: IGSheet,
+    clssName: string
 }
 
 export default function ProfileTechCard(props: IExpAppProps) {
     const { data } = props
     const techs = data.value2.split(',')
+    const defClass = "bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700";
     return (
-        <div className="bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+        <div className={props.clssName ? `${defClass} ${props.clssName}` : defClass}>
             <div className="w-full p-2 border-b border-gray-200 rounded-t-xl dark:border-gray-600 ">
-                <p className="text-base text-center">{data.value}</p>
+                <div className="flex flex-col items-center">
+                    <div className="flex p-1">
+                        <SimpleIcon className="profile-tech-icon mr-[5px]" iconSlug={data.value3} height="20" width="20" />
+                        <p className="text-sm text-center">{data.value}</p>
+                    </div>
+                </div>
             </div>
             
             <div className="p-3">

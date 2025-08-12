@@ -15,6 +15,7 @@ export default function SimpleIcon(props: ISimpleIconProps) {
   const clssName = "simple-icon" + (className ? ' ' + className : '')
   
   return (
-    <img className={clssName} style={style} height={height} width={width} src={'/portfolio-next-app/simple-icons/' + iconSlug + '.svg'} title={iconSlug}/>
+    <img className={clssName} style={style} height={height} width={width} 
+      src={'/portfolio-next-app/simple-icons/' + iconSlug.toLowerCase() + '.svg'} title={iconSlug}/>
   )
 }
