@@ -38,7 +38,7 @@ export default function Profile(props: IProfileProps) {
             <div className="flex flex-col items-center">
                 <div className="grid md:grid-cols-3 sm:grid-cols-1 gap-5">
                     { data.techs && data.techs.map((tech, i) => 
-                        <ProfileTechCard key={i} clssName={tech.value == "Miscellaneous" ? "col-span-3" : ""} data={tech}></ProfileTechCard>
+                        <ProfileTechCard key={i} clssName={tech.value == "Miscellaneous" && data.screenWidth >= 640 ? "col-span-3" : ""} data={tech}></ProfileTechCard>
                     ) }
                 </div>                
             </div>

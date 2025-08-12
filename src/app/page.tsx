@@ -12,9 +12,11 @@ export default function Home() {
   const [cv, setCv] = useState<ICv>({ profile: { name: '', position: '' } } as ICv)
   const [data, setData] = useState<IGSheet[]>([])
   const [showLoader, setShowLoader] = useState(true)
+  const [screenWidth, setScreenWidth] = useState(0)
 
   useEffect(() => {
     const sp =  CommonLib.getSearchParams(window)
+    setScreenWidth(window.innerWidth)
 
     fetch(`https://sheets.googleapis.com/v4/spreadsheets/${sp.s}/values:batchGet?ranges=Sheet1&key=${sp.a}`)
       .then((response) => response.json())
@@ -129,9 +131,10 @@ export default function Home() {
         addressObj: profileList.find(x => x.key == "ADDRESS")!,
         position: SheetLib.findData(profileList, "POSITION"),
         number: SheetLib.findData(profileList, "NUMBER"),
-        numberObj: profileList.find(x => x.key == "NUMBER")!,
+        numberObj: profileList.find(x => x.key == "NUMBER")!,        
         links: profileList.filter((x: IGSheet) => x.key.includes("LINK_")),
-        techs: techList
+        techs: techList,
+        screenWidth,
       },
       skill: {
         backend: {

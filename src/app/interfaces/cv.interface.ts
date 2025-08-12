@@ -16,9 +16,10 @@ export interface ICvProfile {
     addressObj: IGSheet;
     position: string;
     number: string;
-    numberObj: IGSheet;
+    numberObj: IGSheet;    
     links: IGSheet[];
-    techs: IGSheet[]
+    techs: IGSheet[];
+    screenWidth: number;
 }
 
 export type ICvLink = ICvBase
