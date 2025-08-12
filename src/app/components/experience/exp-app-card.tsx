@@ -1,6 +1,5 @@
 import { ICvExpApp } from "@/app/interfaces/cv.interface"
 import SimpleIcon from "../ui/simple-icon/simple-icon"
-import './exp-app.css'
 import Carousel from "../ui/carousel/carousel"
 
 interface IExpAppProps {
@@ -15,10 +14,26 @@ export default function ExpAppCard(props: IExpAppProps) {
             {/* <a href="#">
                 <img className="rounded-t-lg md:h-[323px] sm:h-[150px]" src={data.expApp.value2} alt="" />
             </a> */}
-            { !images?.length && <a href="#">
-                <img className="rounded-t-lg" src={data.expApp.value2} alt="" />
-            </a>}
+            { !images?.length && data.expApp.value2 &&
+                <div>
+                    <img className="rounded-t-lg object-contain md:max-h-[450px] sm:max-h-[200px] m-auto" src={data.expApp.value2} alt="" />
+                </div>
+            }
+
+            {/* { !images?.length && 
+                <div className="relative w-full max-w-lg mx-auto overflow-hidden">
+                    <div className="flex" >
+                        <div className="w-full flex-shrink-0">
+                            <img
+                                src={data.expApp.value2}
+                                className="w-full h-auto object-cover max-h-[320px] h-[100%]" />
+                        </div>
+                    </div>
+                </div>
+            } */}
+
             { images?.length > 0 && <Carousel images={images}></Carousel> }
+            
             <div className="p-5">
                 <a href="#">
                     <h5 className="mb-2 text-2xl font-normal tracking-tight text-gray-900 dark:text-white">{data.expApp.value}</h5>

@@ -11,10 +11,13 @@ export interface ICvProfile {
     photo: string;
     name: string;
     email: string;
+    emailObj: IGSheet;
     address: string;
+    addressObj: IGSheet;
     position: string;
     number: string;
-    links: ICvLink[];
+    numberObj: IGSheet;
+    links: IGSheet[];
     techs: IGSheet[]
 }
 

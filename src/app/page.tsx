@@ -124,15 +124,13 @@ export default function Home() {
         photo: SheetLib.findData(profileList, "PHOTO"),
         name: SheetLib.findData(profileList, "NAME"),
         email: SheetLib.findData(profileList, "EMAIL"),
+        emailObj: profileList.find(x => x.key == "EMAIL")!,
         address: SheetLib.findData(profileList, "ADDRESS"),
+        addressObj: profileList.find(x => x.key == "ADDRESS")!,
         position: SheetLib.findData(profileList, "POSITION"),
         number: SheetLib.findData(profileList, "NUMBER"),
-        links: profileList.filter((x: IGSheet) => x.key.includes("LINK_")).map(x => {
-          return {
-            key: x.value2,
-            value: x.value
-          }
-        }),
+        numberObj: profileList.find(x => x.key == "NUMBER")!,
+        links: profileList.filter((x: IGSheet) => x.key.includes("LINK_")),
         techs: techList
       },
       skill: {

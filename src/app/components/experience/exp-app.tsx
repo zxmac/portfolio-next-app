@@ -1,6 +1,7 @@
 import { ICvExperience } from "@/app/interfaces/cv.interface"
 import ExpAppCard from "./exp-app-card"
 import SimpleIcon from "../ui/simple-icon/simple-icon"
+import './exp-app.css'
 
 interface IExpAppProps {
     data: ICvExperience
