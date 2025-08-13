@@ -18,7 +18,7 @@ export default function Profile(props: IProfileProps) {
         // <div className="w-full bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700"> 
         // <div className="w-full border-b border-gray-200 pb-10">
         <div className="w-full">
-            <div className="flex flex-col items-center pb-5">
+            <div className="flex flex-col items-center pt-3 pb-5">
                 <img className="w-24 h-24 mb-3 rounded-full shadow-lg" src={data.photo} />
                 <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">{data.name}</h5>
                 <span className="text-sm text-gray-500 dark:text-gray-400">{data.position}</span>
