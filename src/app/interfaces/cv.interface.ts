@@ -5,7 +5,8 @@ export interface ICv {
     experience: ICvExperience[];
     referecence: ICvReference[];
     education: ICvEducation[];
-    techStack: ICvTechStack
+    techStack: ICvTechStack;
+    isMobile: boolean;
 }
 
 export interface ICvProfile {
@@ -23,7 +24,6 @@ export interface ICvProfile {
 
 export interface ICvTechStack {
     techs: IGSheet[];
-    screenWidth: number;
 }
 
 export type ICvLink = ICvBase

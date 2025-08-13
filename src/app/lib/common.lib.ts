@@ -9,4 +9,7 @@ export class CommonLib {
             return group;
         }, {});
     }
+    public static isMobile(window: Window) {
+        return window.innerWidth < 640
+    }
 }

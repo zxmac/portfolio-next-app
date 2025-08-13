@@ -14,11 +14,11 @@ export default function Home() {
   const [cv, setCv] = useState<ICv>({ profile: { name: '', position: '' } } as ICv)
   const [data, setData] = useState<IGSheet[]>([])
   const [showLoader, setShowLoader] = useState(true)
-  const [screenWidth, setScreenWidth] = useState(0)
+  const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
     const sp =  CommonLib.getSearchParams(window)
-    setScreenWidth(window.innerWidth)
+    setIsMobile(CommonLib.isMobile(window))
 
     fetch(`https://sheets.googleapis.com/v4/spreadsheets/${sp.s}/values:batchGet?ranges=Sheet1&key=${sp.a}`)
       .then((response) => response.json())
@@ -127,8 +127,7 @@ export default function Home() {
         links: profileList.filter((x: IGSheet) => x.key.includes("LINK_"))
       },
       techStack: {
-        techs: techList,
-        screenWidth,
+        techs: techList
       },
       skill: {
         backend: {
@@ -153,10 +152,11 @@ export default function Home() {
       },
       experience: experienceGroupList,
       referecence: referenceGroupList,
-      education: educationGroupList
+      education: educationGroupList,
+      isMobile
     })
     setShowLoader(false)
-  }, [data, screenWidth])
+  }, [data, isMobile])
   
   return (
     <div className="font-roboto grid items-center dark:bg-gray-900">
@@ -164,7 +164,7 @@ export default function Home() {
         <div className="w-[75%] m-auto">
           <Profile data={cv.profile}></Profile>
           <Separator icon="Tech Stacks" size="42" className="pt-5 pb-5"></Separator>
-          <TechStack data={cv.techStack}></TechStack>
+          <TechStack data={cv.techStack} isMobile={cv.isMobile}></TechStack>
           <Separator icon="Work Experience" size="42" className="pt-5 pb-5"></Separator>
           <ExpApp data={cv.experience}></ExpApp>
         </div>
