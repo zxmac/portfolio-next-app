@@ -163,7 +163,7 @@ export default function Home() {
       { !showLoader ? 
         <div className="w-[75%] m-auto">
           <Profile data={cv.profile}></Profile>
-          <Separator icon="Tech Stacks" size="42" className="pt-5 pb-5"></Separator>
+          <Separator icon="Tech Stack" size="42" className="pt-5 pb-5"></Separator>
           <TechStack data={cv.techStack} isMobile={cv.isMobile}></TechStack>
           <Separator icon="Work Experience" size="42" className="pt-5 pb-5"></Separator>
           <ExpApp data={cv.experience}></ExpApp>
