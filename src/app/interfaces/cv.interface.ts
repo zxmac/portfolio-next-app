@@ -5,6 +5,7 @@ export interface ICv {
     experience: ICvExperience[];
     referecence: ICvReference[];
     education: ICvEducation[];
+    techStack: ICvTechStack
 }
 
 export interface ICvProfile {
@@ -18,6 +19,9 @@ export interface ICvProfile {
     number: string;
     numberObj: IGSheet;    
     links: IGSheet[];
+}
+
+export interface ICvTechStack {
     techs: IGSheet[];
     screenWidth: number;
 }

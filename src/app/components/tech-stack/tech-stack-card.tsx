@@ -6,7 +6,7 @@ interface IExpAppProps {
     clssName: string
 }
 
-export default function ProfileTechCard(props: IExpAppProps) {
+export default function TechStackCard(props: IExpAppProps) {
     const { data } = props
     const techs = data.value2.split(',')
     const defClass = "bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700";
@@ -15,7 +15,7 @@ export default function ProfileTechCard(props: IExpAppProps) {
             <div className="w-full p-2 border-b border-gray-200 rounded-t-xl dark:border-gray-600 ">
                 <div className="flex flex-col items-center">
                     <div className="flex p-1">
-                        <SimpleIcon className="profile-tech-icon mr-[5px]" iconSlug={data.value3} height="20" width="20" />
+                        <SimpleIcon className="filter-inv-2 mr-[5px]" iconSlug={data.value3} height="20" width="20" />
                         <p className="text-sm text-center">{data.value}</p>
                     </div>
                 </div>
@@ -26,7 +26,7 @@ export default function ProfileTechCard(props: IExpAppProps) {
                     { techs.map((x, i) => 
                         <div key={i} className="flex mr-[8px] mb-[5px]">
                             <span style={{ fontSize: '12px' }}>{x}</span>
-                            <SimpleIcon className="icon-color" style={{ marginLeft: '2px' }} key={i} iconSlug={x} height="14" width="14" />
+                            <SimpleIcon className="filter-inv-4" style={{ marginLeft: '2px' }} key={i} iconSlug={x} height="14" width="14" />
                         </div>)
                     }
                 </div>

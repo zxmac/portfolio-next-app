@@ -1,22 +1,21 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-// import Image from "next/image";
+import { useState } from "react"
 
 interface CarouselProps {
-  images: string[];
+  images: string[]
 }
 
 export default function Carousel({ images }: CarouselProps) {
-  const [current, setCurrent] = useState(0);
+  const [current, setCurrent] = useState(0)
 
   const prevSlide = () => {
-    setCurrent((prev) => (prev === 0 ? images.length - 1 : prev - 1));
-  };
+    setCurrent((prev) => (prev === 0 ? images.length - 1 : prev - 1))
+  }
 
   const nextSlide = () => {
-    setCurrent((prev) => (prev === images.length - 1 ? 0 : prev + 1));
-  };
+    setCurrent((prev) => (prev === images.length - 1 ? 0 : prev + 1))
+  }
 
   return (
     <div className="relative w-full max-w-lg mx-auto overflow-hidden">
@@ -65,5 +64,5 @@ export default function Carousel({ images }: CarouselProps) {
         ))}
       </div>
     </div>
-  );
+  )
 }

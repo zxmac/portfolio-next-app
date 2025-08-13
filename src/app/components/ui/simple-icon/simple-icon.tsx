@@ -16,6 +16,6 @@ export default function SimpleIcon(props: ISimpleIconProps) {
   
   return (
     <img className={clssName} style={style} height={height} width={width} 
-      src={'/portfolio-next-app/simple-icons/' + iconSlug.toLowerCase() + '.svg'} title={iconSlug}/>
+      src={'/portfolio-next-app/simple-icons/' + iconSlug.replace(/\W/g, "").toLowerCase() + '.svg'} title={iconSlug}/>
   )
 }

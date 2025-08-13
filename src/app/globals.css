@@ -30,3 +30,31 @@ body {
   --color-drk: #101010;
   --color-gry: #2a282c;
 }
+
+.spinner-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.filter-inv-1 {
+  filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(222deg) brightness(118%) contrast(119%);
+}
+
+.filter-inv-2 {
+  filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(223deg) brightness(118%) contrast(119%);
+}
+
+.filter-inv-3 {
+  filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(319deg) brightness(118%) contrast(119%);
+}
+
+.filter-inv-4 {
+  filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(218deg) brightness(118%) contrast(119%);
+}
+
+.filter-inv-5 {
+  filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(148deg) brightness(118%) contrast(119%);
+}

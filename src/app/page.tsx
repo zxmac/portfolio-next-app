@@ -7,6 +7,8 @@ import Profile from "./components/profile/profile"
 import ExpApp from "./components/experience/exp-app"
 import { CommonLib } from "./lib/common.lib"
 import Spinner from "./components/ui/spinner/spinner"
+import Separator from "./components/ui/separator/separator"
+import TechStack from "./components/tech-stack/tech-stack"
 
 export default function Home() {
   const [cv, setCv] = useState<ICv>({ profile: { name: '', position: '' } } as ICv)
@@ -22,20 +24,11 @@ export default function Home() {
       .then((response) => response.json())
       .then((data) => {
         setData(SheetLib.formatSheets(data.valueRanges[0].values))
-        setShowLoader(false)
       })
   }, [])
   
-  // const { data } = useGoogleSheets({
-  //   apiKey: params.a,
-  //   sheetId: params.s,
-  //   sheetsOptions: [{ id: 'Sheet1' }],
-  // })  
-  
   useEffect(() => {
-    if (!data || !data.length) return
-    
-    // const sheet: IGSheet[] = data[0].data as IGSheet[]
+    if (!data || !data.length) return    
     const sheet: IGSheet[] = data
     const profileList = SheetLib.filterSheet(sheet, GSheetLib.CV_PROFILE)
     const skillList = SheetLib.filterSheet(sheet, GSheetLib.CV_SKILL)
@@ -93,8 +86,7 @@ export default function Home() {
           expAppConts: expAppContObjList,
           expAppImgs: expAppImgsObjList
         }
-      })
-      
+      })      
       return obj
     })
 
@@ -132,7 +124,9 @@ export default function Home() {
         position: SheetLib.findData(profileList, "POSITION"),
         number: SheetLib.findData(profileList, "NUMBER"),
         numberObj: profileList.find(x => x.key == "NUMBER")!,        
-        links: profileList.filter((x: IGSheet) => x.key.includes("LINK_")),
+        links: profileList.filter((x: IGSheet) => x.key.includes("LINK_"))
+      },
+      techStack: {
         techs: techList,
         screenWidth,
       },
@@ -161,28 +155,21 @@ export default function Home() {
       referecence: referenceGroupList,
       education: educationGroupList
     })
-  }, [data])
-
+    setShowLoader(false)
+  }, [data, screenWidth])
+  
   return (
     <div className="font-roboto grid items-center dark:bg-gray-900">
-      <div className="w-[75%] m-auto">
-        <main className="flex flex-col row-start-2 items-center pb-8">
-
-          { cv.profile && <Profile data={cv.profile}></Profile> }
-        </main>
-
-        <div style={{ opacity: showLoader ? 0 : 1 }}>
-          { cv.experience && cv.experience.filter(x => x.expApps.length).map((exp, i) => 
-            <ExpApp key={i} data={exp}></ExpApp>
-          ) }
-        </div>        
-        
-        <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-          
-        </footer>
-      </div>
-      
-      { showLoader && <Spinner></Spinner> }
+      { !showLoader ? 
+        <div className="w-[75%] m-auto">
+          <Profile data={cv.profile}></Profile>
+          <Separator icon="Tech Stacks" size="42" className="pt-5 pb-5"></Separator>
+          <TechStack data={cv.techStack}></TechStack>
+          <Separator icon="Work Experience" size="42" className="pt-5 pb-5"></Separator>
+          <ExpApp data={cv.experience}></ExpApp>
+        </div>
+        : <Spinner></Spinner>
+      }
     </div>
   )
 }
