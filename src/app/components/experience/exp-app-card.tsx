@@ -17,7 +17,7 @@ export default function ExpAppCard(props: IExpAppProps) {
                 </div>
             }
 
-            { images?.length > 0 && <Carousel images={images}></Carousel> }
+            { !!images?.length && <Carousel images={images}></Carousel> }
             
             <div className="p-5">
                 <a href="#">
