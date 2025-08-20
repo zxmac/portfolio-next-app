@@ -161,7 +161,7 @@ export default function Home() {
   return (
     <div className="font-roboto grid items-center dark:bg-gray-900">
       { !showLoader ? 
-        <div className="w-[75%] m-auto">
+        <div className="md:w-[75%] sm:w-full m-auto md:px-0 px-5">
           <Profile data={cv.profile}></Profile>
           <Separator icon="Tech Stack" size="42" className="pt-5 pb-5"></Separator>
           <TechStack data={cv.techStack} isMobile={cv.isMobile}></TechStack>
