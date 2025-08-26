@@ -1,4 +1,4 @@
-import { ICvProfile, IGSheet } from "@/app/interfaces/cv.interface";
+import { ICvProfile, IGSheet } from "@/app/models/cv.model";
 import SimpleIcon from "../ui/simple-icon/simple-icon";
 
 interface IProfileProps {
@@ -17,7 +17,7 @@ export default function Profile(props: IProfileProps) {
                 <div className="flex flex-col items-center pt-3">
                     <img className="w-24 h-24 mb-3 rounded-full shadow-lg" src={data.photo} />
                     <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">{data.name}</h5>
-                    <span className="text-sm text-gray-500 dark:text-gray-400">{data.position}</span>
+                    <span className="text-sm text-gray-500 dark:text-gray-400 italic">{data.position}</span>
                     <ul className="max-w-md mt-[8px] space-y-1 text-gray-500 list-inside dark:text-gray-400">
                         {links && links.map((link, i) => 
                             <li key={i} className="flex items-center">

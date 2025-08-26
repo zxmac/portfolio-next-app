@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { ICv, GSheetLib, IGSheet, ICvExperience, ICvReference, ICvEducation } from "./interfaces/cv.interface"
+import { ICv, GSheetLib, IGSheet, ICvExperience, ICvReference, ICvEducation } from "./models/cv.model"
 import { SheetLib } from "./lib/sheet.lib"
 import Profile from "./components/profile/profile"
 import ExpApp from "./components/experience/exp-app"
@@ -164,7 +164,7 @@ export default function Home() {
         <div className="md:w-[75%] sm:w-full m-auto md:px-0 px-5">
           <Profile data={cv.profile}></Profile>
           <Separator icon="Tech Stack" size="42" className="pt-5 pb-5"></Separator>
-          <TechStack data={cv.techStack} isMobile={cv.isMobile}></TechStack>
+          <TechStack data={cv.techStack}></TechStack>
           <Separator icon="Work Experience" size="42" className="pt-5 pb-5"></Separator>
           <ExpApp data={cv.experience}></ExpApp>
         </div>

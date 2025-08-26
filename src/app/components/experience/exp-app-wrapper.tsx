@@ -1,4 +1,4 @@
-import { ICvExperience } from "@/app/interfaces/cv.interface"
+import { ICvExperience } from "@/app/models/cv.model"
 import ExpAppCard from "./exp-app-card"
 import SimpleIcon from "../ui/simple-icon/simple-icon"
 

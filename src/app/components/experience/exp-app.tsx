@@ -1,4 +1,4 @@
-import { ICvExperience } from "@/app/interfaces/cv.interface"
+import { ICvExperience } from "@/app/models/cv.model"
 import ExpAppWrapper from "./exp-app-wrapper"
 
 interface IExpAppProps {

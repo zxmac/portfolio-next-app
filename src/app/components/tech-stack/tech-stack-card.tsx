@@ -1,9 +1,8 @@
-import { IGSheet } from "@/app/interfaces/cv.interface"
+import { IGSheet } from "@/app/models/cv.model"
 import SimpleIcon from "../ui/simple-icon/simple-icon"
 
 interface IExpAppProps {
-    data: IGSheet,
-    clssName: string
+    data: IGSheet
 }
 
 export default function TechStackCard(props: IExpAppProps) {
@@ -11,7 +10,7 @@ export default function TechStackCard(props: IExpAppProps) {
     const techs = data.value2.split(',')
     const defClass = "bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700";
     return (
-        <div className={props.clssName ? `${defClass} ${props.clssName}` : defClass}>
+        <div className={data.value == "Miscellaneous" ? `${defClass} md:col-span-3` : defClass}>
             <div className="w-full p-2 border-b border-gray-200 rounded-t-xl dark:border-gray-600 ">
                 <div className="flex flex-col items-center">
                     <div className="flex p-1">

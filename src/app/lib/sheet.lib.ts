@@ -1,4 +1,4 @@
-import { IGSheet } from "../interfaces/cv.interface";
+import { IGSheet } from "../models/cv.model";
 
 export class SheetLib {
     public static filterSheet(list: IGSheet[], groupId: string): IGSheet[] {

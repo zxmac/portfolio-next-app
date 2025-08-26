@@ -1,4 +1,4 @@
-import { ICvExpApp } from "@/app/interfaces/cv.interface"
+import { ICvExpApp } from "@/app/models/cv.model"
 import SimpleIcon from "../ui/simple-icon/simple-icon"
 import Carousel from "../ui/carousel/carousel"
 
