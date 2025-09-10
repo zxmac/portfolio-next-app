@@ -1,67 +1,66 @@
-export interface ICv {
-    profile: ICvProfile;
-    skill: ICvSkill;
-    summary: ICvSummary;
-    experience: ICvExperience[];
-    referecence: ICvReference[];
-    education: ICvEducation[];
-    techStack: ICvTechStack;
-    isMobile: boolean;
+export interface Cv {
+    profile: CvProfile;
+    skill: CvSkill;
+    summary: CvSummary;
+    experience: CvExperience[];
+    referecence: CvReference[];
+    education: CvEducation[];
+    techStack: CvTechStack;
 }
 
-export interface ICvProfile {
+export interface CvProfile {
     photo: string;
     name: string;
     email: string;
-    emailObj: IGSheet;
+    emailObj: GSheet;
     address: string;
-    addressObj: IGSheet;
+    addressObj: GSheet;
     position: string;
     number: string;
-    numberObj: IGSheet;    
-    links: IGSheet[];
+    numberObj: GSheet;    
+    links: GSheet[];
 }
 
-export interface ICvTechStack {
-    techs: IGSheet[];
+export interface CvTechStack {
+    techs: GSheet[];
 }
 
-export type ICvLink = ICvBase
+export type CvLink = CvBase
 
-export interface ICvSkill {
-    frontend: ICvSkillObj;
-    backend: ICvSkillObj;
-    databases: ICvSkillObj;
-    miscellaneuos: ICvSkillObj;
+export interface CvSkill {
+    frontend: CvSkillObj;
+    backend: CvSkillObj;
+    databases: CvSkillObj;
+    miscellaneuos: CvSkillObj;
 }
 
-export interface ICvSkillObj {
+export interface CvSkillObj {
     level: number | string;
     list: string[];
 }
 
-export interface ICvSummary {
+export interface CvSummary {
     title: string;
 }
 
-export interface ICvExperience {
+export interface CvExperience {
     timeperiod: string;
     position: string;
-    company: IGSheet;
+    company: GSheet;
     technologies: string[];
     descriptions: string[];
-    expApps: ICvExpApp[];
+    expApps: CvExpApp[];
 }
 
-export interface ICvExpApp {
-    expApp: IGSheet;
+export interface CvExpApp {
+    expApp: GSheet;
     expAppTechs: string[];
-    expAppSpecs: IGSheet[];
-    expAppConts: IGSheet[];
-    expAppImgs: IGSheet[];
+    expAppSpecs: GSheet[];
+    expAppConts: GSheet[];
+    expAppImgs: GSheet[];
 }
 
-export interface ICvExperienceApp {
+export interface CvExperienceApp {
     timeperiod: string;
     position: string;
     company: string;
@@ -69,20 +68,20 @@ export interface ICvExperienceApp {
     descriptions: string[];
 }
 
-export interface ICvReference {
-    list: ICvBase[]
+export interface CvReference {
+    list: CvBase[]
 }
 
-export interface ICvEducation {
-    list: IGSheet[]
+export interface CvEducation {
+    list: GSheet[]
 }
 
-export interface ICvBase {
+export interface CvBase {
     key: string;
     value: string;
 }
 
-export interface IGSheet extends ICvBase {
+export interface GSheet extends CvBase {
     key2?: string;
     key3?: string;
     groupId: string;
@@ -91,18 +90,3 @@ export interface IGSheet extends ICvBase {
     description: string;
 }
 
-export class GSheetLib {
-    public static readonly KEY_GROUP_ID = "groupId";
-    public static readonly KEY_KEY = "key";
-    public static readonly KEY_VALUE = "value";
-    public static readonly KEY_DESCRIPTION = "description";
-
-    public static readonly CV_PROFILE = "CVPRL";
-    public static readonly CV_SKILL = "CVSKL";
-    public static readonly CV_SUMMARY = "CVSMY";
-    public static readonly CV_EXPERIENCE = "CVEXP";
-    public static readonly CV_REFERENCE = "CVREF";
-    public static readonly CV_EDUCATION = "CVEDU";
-    public static readonly CV_TABTITLE = "CVTABTITLE";
-    public static readonly CV_TECH = "CVTECH";
-}

@@ -1,9 +1,9 @@
-import { ICvExperience } from "@/app/models/cv.model"
+import { CvExperience } from "@/app/models/cv.model"
 import ExpAppCard from "./exp-app-card"
 import SimpleIcon from "../ui/simple-icon/simple-icon"
 
 interface IExpAppWrapperProps {
-    data: ICvExperience
+    data: CvExperience
 }
 
 export default function ExpAppWrapper(props: IExpAppWrapperProps) {
@@ -18,7 +18,7 @@ export default function ExpAppWrapper(props: IExpAppWrapperProps) {
                             <div className="pt-2">
                                 <div className="flex">
                                     <SimpleIcon className="filter-inv-3 mr-2" iconSlug="corporate" height="15" width="15"></SimpleIcon>
-                                    <p className="text-sm">{data.company.value}</p>
+                                    <p className="text-sm">{data.position}</p>
                                 </div>
                             </div>
                             <div className="pt-2">

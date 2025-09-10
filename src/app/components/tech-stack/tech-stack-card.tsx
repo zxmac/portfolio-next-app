@@ -1,8 +1,8 @@
-import { IGSheet } from "@/app/models/cv.model"
+import { GSheet } from "@/app/models/cv.model"
 import SimpleIcon from "../ui/simple-icon/simple-icon"
 
 interface IExpAppProps {
-    data: IGSheet
+    data: GSheet
 }
 
 export default function TechStackCard(props: IExpAppProps) {

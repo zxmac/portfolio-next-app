@@ -1,9 +1,9 @@
-import { ICvExpApp } from "@/app/models/cv.model"
+import { CvExpApp } from "@/app/models/cv.model"
 import SimpleIcon from "../ui/simple-icon/simple-icon"
 import Carousel from "../ui/carousel/carousel"
 
 interface IExpAppProps {
-    data: ICvExpApp
+    data: CvExpApp
 }
 
 export default function ExpAppCard(props: IExpAppProps) {

@@ -1,8 +1,8 @@
-import { ICvTechStack } from "@/app/models/cv.model"
+import { CvTechStack } from "@/app/models/cv.model"
 import TechStackCard from "./tech-stack-card"
 
 interface ITechStackProps {
-    data: ICvTechStack
+    data: CvTechStack
 }
 
 export default function TechStack(props: ITechStackProps) {

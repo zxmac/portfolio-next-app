@@ -1,8 +1,8 @@
-import { ICvExperience } from "@/app/models/cv.model"
+import { CvExperience } from "@/app/models/cv.model"
 import ExpAppWrapper from "./exp-app-wrapper"
 
 interface IExpAppProps {
-    data: ICvExperience[]
+    data: CvExperience[]
 }
 
 export default function ExpApp(props: IExpAppProps) {

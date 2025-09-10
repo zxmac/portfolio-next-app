@@ -1,13 +1,13 @@
-import { ICvProfile, IGSheet } from "@/app/models/cv.model";
+import { CvProfile, GSheet } from "@/app/models/cv.model";
 import SimpleIcon from "../ui/simple-icon/simple-icon";
 
 interface IProfileProps {
-    data: ICvProfile
+    data: CvProfile
 }
 
 export default function Profile(props: IProfileProps) {
     const { data } = props
-    let links: IGSheet[] = []
+    let links: GSheet[] = []
     if (data.links) {
         links = [data.addressObj, data.emailObj, data.numberObj, ...data.links]
     }
